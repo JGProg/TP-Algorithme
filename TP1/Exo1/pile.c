@@ -1,6 +1,5 @@
 #include "pile.h"
 
-
 void init( Pile *p ) {
 	p->taille = -1;
 }
