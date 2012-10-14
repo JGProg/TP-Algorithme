@@ -1,4 +1,4 @@
-exo1:	exo1.o pile.o
+Exo1:	exo1.o pile.o
 	gcc -Wall exo1.o pile.o -o exo1
 
 pile.o:	pile.c pile.h
