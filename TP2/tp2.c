@@ -25,6 +25,8 @@ printf("moyenne: %d\n",moyenne(arbre));
 printf("hauteur: %d\n",hauteur(arbre));
 printf("cherche: %d\n",chercher(arbre, 1));
 printf("cherche: %d\n",chercher2(arbre, 0));
+printf("Minimun: %d\n",minimum(arbre)->valeur);
+printf("Maximum: %d\n",maximum(arbre)->valeur);
 detruire(arbre);
 printf("fin\n\n\n\n");
 	return 0;

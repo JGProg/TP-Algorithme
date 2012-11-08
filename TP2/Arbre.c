@@ -70,19 +70,18 @@ if(racine!=NULL)
 }
 void afficher2(Arbre* racine)
 {
-if(racine!=NULL)
-{
-	printf("{");
+	if(racine!=NULL)
+	{
+		printf("{");
 	
-	afficher2(racine->gauche);
+		afficher2(racine->gauche);
 	
-	printf(",%d,",racine->valeur);
-		
-	afficher2(racine->droit);
-	printf("}");
-}
-else 
-	printf("_");
+		printf(",%d,",racine->valeur);
+		afficher2(racine->droit);
+		printf("}");
+	}
+	else 
+		printf("_");
 }
 
 int verifie(Arbre* racine)
@@ -94,11 +93,9 @@ int taille(Arbre* racine)
 	static int nbnoeud=0;
 	if(racine!=NULL)
 	{
-		
-	taille(racine->gauche);
-	nbnoeud++;
-	taille(racine->droit);
-
+		taille(racine->gauche);
+		nbnoeud++;
+		taille(racine->droit);
 	}
 	return nbnoeud;
 }
@@ -178,12 +175,32 @@ struct Noeud* chercher2(Arbre* racine, int valeur)
 
 struct Noeud* minimum(Arbre* racine)
 {
-
-
+	struct Noeud* min = racine;
+    if (racine->gauche)
+    {
+        struct Noeud* MiniGauche = minimum(racine->gauche);
+        min = (min->valeur < MiniGauche->valeur ) ? min : MiniGauche;
+    }
+    if (racine->droit)
+    {
+        struct Noeud* MiniDroite = minimum(racine->droit);
+        min = (min->valeur < MiniDroite->valeur ) ? min : MiniDroite;
+    }
+    return min;
 }
 
 struct Noeud* maximum(Arbre* racine)
 {
-
-
+	struct Noeud* max = racine;
+    if (racine->gauche)
+    {
+        struct Noeud* MaxiGauche = maximum(racine->gauche);
+        max = (max->valeur > MaxiGauche->valeur ) ? max : MaxiGauche;
+    }
+    if (racine->droit)
+    {
+        struct Noeud* MaxiDroite = maximum (racine->droit);
+        max = (max->valeur > MaxiDroite->valeur ) ? max : MaxiDroite;
+    }
+    return max;
 }
