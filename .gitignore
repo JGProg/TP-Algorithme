@@ -164,3 +164,11 @@ pip-log.txt
 
 # Object file
 *.o
+
+TP2/Arbre.c~
+
+TP2/Makefile~
+
+TP2/tp2.c~
+
+TP2/tp2-cs316.pdf
