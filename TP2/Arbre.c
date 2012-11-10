@@ -84,10 +84,13 @@ void afficher2(Arbre* racine)
 		printf("_");
 }
 
+//TODO
 int verifie(Arbre* racine)
 {
-
+    return 0;
 }
+
+
 int taille(Arbre* racine)
 {
 	static int nbnoeud=0;
@@ -101,14 +104,13 @@ int taille(Arbre* racine)
 }
 int hauteur(Arbre* racine)
 {
-	if(racine!=NULL)
-	{
-		return 1 + max(hauteur(racine->gauche),hauteur(racine->droit));
-	}
-	else
+	if(racine==NULL)
 	{
 		return 0;
 	}
+    int nbNoeudGauche = hauteur(racine->gauche);
+    int nbNoeudDroit = hauteur(racine->droit);
+    return max(nbNoeudDroit,nbNoeudGauche)+1;
 }
 
 unsigned int max(int a,int b)
@@ -203,4 +205,38 @@ struct Noeud* maximum(Arbre* racine)
         max = (max->valeur > MaxiDroite->valeur ) ? max : MaxiDroite;
     }
     return max;
+}
+
+struct Noeud* supprimer(Arbre * Racine, int valeur)
+{
+	struct Noeud* NoeudASupprimer;
+	if (Racine->valeur==valeur) // on a trouvé l'élément à supprimer
+	{
+		NoeudASupprimer=Racine;
+		if (NoeudASupprimer->gauche==NULL) //si ya pa de gauche, on retourne droit
+			return NoeudASupprimer->droit;
+		else
+		{
+			Racine=NoeudASupprimer->gauche; //sinon on recherche dans gauche l'endroit pour insérer le droit
+            while (Racine->droit!=NULL)
+            {
+                Racine=Racine->droit;
+            }
+            Racine->droit=NoeudASupprimer->droit;
+			return NoeudASupprimer->gauche;
+		}
+		free(NoeudASupprimer);
+	}
+	else
+	{
+		if (Racine->valeur>valeur)
+		{
+			Racine->gauche=supprimer(Racine->gauche,valeur);
+		}
+		else
+		{
+			Racine->droit=supprimer(Racine->droit,valeur);
+		}
+	}
+	return Racine;
 }

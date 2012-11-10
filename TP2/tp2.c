@@ -27,6 +27,8 @@ printf("cherche: %d\n",chercher(arbre, 1));
 printf("cherche: %d\n",chercher2(arbre, 0));
 printf("Minimun: %d\n",minimum(arbre)->valeur);
 printf("Maximum: %d\n",maximum(arbre)->valeur);
+printf("Supprimer: %d\n",supprimer(arbre,49));
+    afficher2(arbre);
 detruire(arbre);
 printf("fin\n\n\n\n");
 	return 0;
