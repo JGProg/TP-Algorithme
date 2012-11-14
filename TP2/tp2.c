@@ -29,6 +29,7 @@ printf("Minimun: %d\n",minimum(arbre)->valeur);
 printf("Maximum: %d\n",maximum(arbre)->valeur);
 printf("Supprimer: %d\n",supprimer(arbre,49));
     afficher2(arbre);
+    printf("\n");
 detruire(arbre);
 printf("fin\n\n\n\n");
 	return 0;

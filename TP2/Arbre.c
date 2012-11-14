@@ -240,3 +240,5 @@ struct Noeud* supprimer(Arbre * Racine, int valeur)
 	}
 	return Racine;
 }
+
+
