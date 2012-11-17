@@ -28,10 +28,17 @@ int moyenne(Arbre* racine);
 
 struct Noeud* chercher(Arbre* racine, int valeur);
 struct Noeud* chercher2(Arbre* racine, int valeur);
+
+struct Noeud* successeur(Arbre* Racine, int valeur);
+struct Noeud* predecesseur(Arbre* racine, int valeur);
+
 struct Noeud* minimum(Arbre* racine);
 struct Noeud* maximum(Arbre* racine);
 
+
 struct Noeud* supprimer(Arbre* racine, int valeur);
+
+
 
 Arbre* fusion(Arbre* arbre1, Arbre* arbre2);
 int equivalents(Arbre* arbre1, Arbre* arbre2);
