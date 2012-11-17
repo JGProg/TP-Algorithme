@@ -24,10 +24,11 @@ printf("moyenne: %d\n",moyenne(arbre));
 printf("hauteur: %d\n",hauteur(arbre));
 printf("cherche: %d\n",chercher(arbre, 50));
 printf("cherche: %d\n",chercher2(arbre, 1));
-printf("Successeur: %d\n",successeur(arbre,1)->valeur);
-printf("Verifie: %d\n",verifie(arbre));
+printf("Successeur: %d\n",successeur(arbre,54)->valeur);
+//printf("Predecesseur: %d\n",predecesseur(arbre,3)->valeur);
+    printf("Verifie: %d\n",verifie(arbre));
     
-printf("Predecesseur: %d\n",predecesseur(arbre,3)->valeur);
+
 printf("Minimun: %d\n",minimum(arbre)->valeur);
 printf("Maximum: %d\n",maximum(arbre)->valeur);
 

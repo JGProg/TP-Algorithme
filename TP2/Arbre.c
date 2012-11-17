@@ -270,17 +270,68 @@ struct Noeud* supprimer(Arbre * Racine, int valeur)
 	return Racine;
 }
 
-//NOK
+//OK
 struct Noeud* successeur(Arbre* racine, int valeur)
 {
-    //TODO
+    if(chercher(racine,valeur) == NULL || maximum(racine)->valeur == valeur)
+    {
+        return NULL;
+    }
+    struct Noeud* temp = NULL;
+    while(racine != NULL && valeur != racine->valeur)
+	{
+		if(valeur < racine->valeur)
+		{
+            temp = racine;
+			racine = racine->gauche;
+		}
+		else
+		{
+            temp = racine;
+			racine = racine->droit;
+		}
+	}
+    if (racine == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return temp;
+    }
+
 }
 
 
 //NOK
 struct Noeud* predecesseur(Arbre* racine, int valeur)
 {
-    //TODO
+    if(chercher(racine,valeur) == NULL || minimum(racine)->valeur == valeur)
+    {
+        return NULL;
+    }
+    struct Noeud* temp = NULL;
+    while(racine != NULL && valeur != racine->valeur)
+	{
+		if(valeur < racine->valeur)
+		{
+            temp = racine;
+			racine = racine->gauche;
+		}
+		else
+		{
+            temp = racine;
+			racine = racine->droit;
+		}
+	}
+    if (racine == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return temp;
+    }
 }
 
 
@@ -319,7 +370,8 @@ Arbre* fusion(Arbre* arbre1, Arbre* arbre2)
 int equivalents(Arbre* arbre1, Arbre* arbre2)
 {
     if (arbre1==NULL && arbre2==NULL) return 1;
-    else if (arbre1!=NULL && arbre2!=NULL) {
+    else if (arbre1!=NULL && arbre2!=NULL)
+    {
         return(
                arbre1->valeur == arbre2->valeur &&
                equivalents(arbre1->gauche, arbre2->gauche) &&
