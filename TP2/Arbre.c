@@ -277,7 +277,7 @@ struct Noeud* successeur(Arbre* racine, int valeur)
     {
         return NULL;
     }
-    struct Noeud* temp = NULL;
+    struct Noeud* temp = racine;
     while(racine != NULL && valeur != racine->valeur)
 	{
 		if(valeur < racine->valeur)
@@ -291,11 +291,17 @@ struct Noeud* successeur(Arbre* racine, int valeur)
 			racine = racine->droit;
 		}
 	}
-    if (racine == NULL)
+    printf("%d et valeur %d\n",maximum(temp->gauche)->valeur,valeur);
+    
+    if(valeur == maximum(temp->gauche)->valeur)
     {
-        return NULL;
+        return racine;
     }
-    else
+    else if(racine->valeur == valeur)
+    {
+        return minimum(racine->droit);
+    }
+    else    
     {
         return temp;
     }
@@ -315,13 +321,15 @@ struct Noeud* predecesseur(Arbre* racine, int valeur)
 	{
 		if(valeur < racine->valeur)
 		{
-            temp = racine;
+            
 			racine = racine->gauche;
+            temp = racine;
 		}
 		else
 		{
-            temp = racine;
+            
 			racine = racine->droit;
+            temp = racine;
 		}
 	}
     if (racine == NULL)
