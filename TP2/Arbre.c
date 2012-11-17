@@ -3,6 +3,7 @@
 #include "Arbre.h"
 unsigned int max(int a,int b);
 
+//OK
 Arbre* creer(int valeur)
 {
 	Arbre * racine;
@@ -14,6 +15,7 @@ Arbre* creer(int valeur)
 	return racine;
 }
 
+//OK
 void detruire(Arbre* racine)
 {
 
@@ -28,6 +30,7 @@ void detruire(Arbre* racine)
 	
 }
 
+//OK
 struct Noeud* inserer(Arbre* noeud, int valeur)
 {
 
@@ -45,7 +48,7 @@ struct Noeud* inserer(Arbre* noeud, int valeur)
     
 }
 
-
+//OK
 void afficher(Arbre* racine)
 {
     if(racine!=NULL)
@@ -58,6 +61,8 @@ void afficher(Arbre* racine)
 		
     }
 }
+
+//OK
 void afficher2(Arbre* racine)
 {
 	if(racine!=NULL)
@@ -74,7 +79,7 @@ void afficher2(Arbre* racine)
 		printf("_");
 }
 
-
+//OK
 int verifie(Arbre* racine)
 {
     if (racine==NULL) return 1;
@@ -91,7 +96,7 @@ int verifie(Arbre* racine)
     return 1;
 }
 
-
+//OK
 int taille(Arbre* racine)
 {
 	static int nbnoeud=0;
@@ -103,6 +108,8 @@ int taille(Arbre* racine)
 	}
 	return nbnoeud;
 }
+
+// OK
 int hauteur(Arbre* racine)
 {
 	if(racine==NULL)
@@ -114,6 +121,7 @@ int hauteur(Arbre* racine)
     return max(nbNoeudDroit,nbNoeudGauche)+1;
 }
 
+//OK
 unsigned int max(int a,int b)
 {
 	if(a>b)
@@ -122,6 +130,7 @@ unsigned int max(int a,int b)
 		return b;
 }
 
+//OK
 int somme(Arbre* racine)
 {
 	static int ressomme=0;
@@ -135,6 +144,8 @@ int somme(Arbre* racine)
 	}
 	return ressomme;
 }
+
+//OK
 int moyenne(Arbre* racine)
 {
 	return somme(racine)/taille(racine);
@@ -171,6 +182,7 @@ struct Noeud* chercher(Arbre* racine, int valeur)
     return racine;
 }
 
+//OK
 struct Noeud* chercher2(Arbre* racine, int valeur)
 {
 	while(racine != NULL && valeur != racine->valeur)
@@ -194,6 +206,7 @@ struct Noeud* chercher2(Arbre* racine, int valeur)
     }
 }
 
+//OK
 struct Noeud* minimum(Arbre* racine)
 {
 	struct Noeud* min = racine;
@@ -210,6 +223,7 @@ struct Noeud* minimum(Arbre* racine)
     return min;
 }
 
+//OK
 struct Noeud* maximum(Arbre* racine)
 {
 	struct Noeud* max = racine;
@@ -226,6 +240,7 @@ struct Noeud* maximum(Arbre* racine)
     return max;
 }
 
+//OK
 struct Noeud* supprimer(Arbre * Racine, int valeur)
 {
 	struct Noeud* NoeudASupprimer;
@@ -260,6 +275,7 @@ struct Noeud* supprimer(Arbre * Racine, int valeur)
 	return Racine;
 }
 
+//NOK
 struct Noeud* successeur(Arbre* racine, int valeur)
 {
 	struct Noeud* a = NULL;
@@ -309,6 +325,7 @@ struct Noeud* successeur(Arbre* racine, int valeur)
 }
 
 
+//NOK
 struct Noeud* predecesseur(Arbre* racine, int valeur)
 {
     struct Noeud* a = NULL;
@@ -393,7 +410,7 @@ Arbre* fusion(Arbre* arbre1, Arbre* arbre2)
 }
 
 
-//End
+//OK
 int equivalents(Arbre* arbre1, Arbre* arbre2)
 {
     if (arbre1==NULL && arbre2==NULL) return 1;
