@@ -11,7 +11,7 @@ Arbre* creer(int valeur)
 	racine->gauche=(NULL);
 	racine->droit=(NULL);
 	racine->valeur=valeur;	
-	printf("%d inséré dans l'arbre.\n",valeur);
+	//printf("%d inséré dans l'arbre.\n",valeur);
 	return racine;
 }
 
@@ -25,7 +25,7 @@ void detruire(Arbre* racine)
 		detruire(racine->droit);
 	
 		
-	printf("noeud %d  à détruire\n",racine->valeur);	
+	//printf("noeud %d  à détruire\n",racine->valeur);
 	free(racine);
 	
 }
@@ -33,19 +33,17 @@ void detruire(Arbre* racine)
 //OK
 struct Noeud* inserer(Arbre* noeud, int valeur)
 {
-
         if (noeud == NULL) {
             return(creer(valeur));
         }
         else {
-            if (valeur <= noeud->valeur)
+            if (valeur < noeud->valeur)
                 noeud->gauche = inserer(noeud->gauche, valeur);
             else
                 noeud->droit = inserer(noeud->droit, valeur);
             
             return(noeud);
         } 
-    
 }
 
 //OK
@@ -55,10 +53,9 @@ void afficher(Arbre* racine)
     {
         afficher(racine->gauche);
 	
-        printf("%d ;",racine->valeur);
+        printf("%d;",racine->valeur);
 	
         afficher(racine->droit);
-		
     }
 }
 
@@ -68,9 +65,7 @@ void afficher2(Arbre* racine)
 	if(racine!=NULL)
 	{
 		printf("{");
-	
 		afficher2(racine->gauche);
-	
 		printf(",%d,",racine->valeur);
 		afficher2(racine->droit);
 		printf("}");
@@ -278,132 +273,42 @@ struct Noeud* supprimer(Arbre * Racine, int valeur)
 //NOK
 struct Noeud* successeur(Arbre* racine, int valeur)
 {
-	struct Noeud* a = NULL;
-	struct Noeud* sucess = NULL;
-	a = chercher(racine,valeur);    
-    
-	if(a == maximum(racine))
-	{
-		return a;
-	}
-	
-	if(a->droit != NULL)
-    {
-		sucess = minimum(a->droit);
-	}
-    else
-	{
-		do
-		{
-			if(chercher(racine->droit,valeur))
-			{
-				racine = racine->droit;
-			}
-			else if(chercher(racine->gauche,valeur))
-			{
-				if((racine->valeur > valeur && racine->gauche->valeur < valeur) || (racine->valeur < valeur && racine->gauche->valeur > valeur))
-				{
-					if(racine->valeur > racine->gauche->valeur)
-					{
-						sucess = racine->droit;
-						return sucess;
-					}
-					else
-					{
-						sucess = racine->gauche;
-						return sucess;
-					}
-				}
-				else
-					racine = racine->gauche;
-			}
-			else
-				sucess = racine;
-		}while(sucess == NULL);
-	}
-	return sucess;
+    //TODO
 }
 
 
 //NOK
 struct Noeud* predecesseur(Arbre* racine, int valeur)
 {
-    struct Noeud* a = NULL;
-	struct Noeud* sucess = NULL;
-	a = chercher(racine,valeur);
-    
-	if(a == minimum(racine))
-	{
-		return a;
-	}
-	
-	if(a->gauche != NULL)
-    {
-		sucess = maximum(a->droit);
-	}
-    else
-	{
-		do
-		{
-			if(chercher(racine->droit,valeur))
-			{
-				racine = racine->droit;
-			}
-			else if(chercher(racine->gauche,valeur))
-			{
-				if((racine->valeur < valeur && racine->gauche->valeur > valeur) || (racine->valeur > valeur && racine->gauche->valeur < valeur))
-				{
-					if(racine->valeur > racine->gauche->valeur)
-					{
-                        printf("djhdsfhjk\n");
-						sucess = racine->droit;
-						return sucess;
-					}
-					else
-					{
-                         printf("l'autr if \n");
-						sucess = racine->gauche;
-						return sucess;
-					}
-				}
-				else
-                {
-                    printf("hello \n");
-					racine = racine->gauche;
-                }
-			}
-			else
-            {
-				sucess = racine;
-            }
-		
-            }while(sucess == NULL);
-	}
-    
-	return sucess;
+    //TODO
 }
 
 
 
-//A revoir '%' à la fin
+//OK
 Arbre* fusion(Arbre* arbre1, Arbre* arbre2)
 {
-	
+   
     if(arbre2 != NULL && arbre1 != NULL)
     {
+        // On recherche pour voir si la valeur arbre 1 est dans l'arbre 2
         if (chercher(arbre2,arbre1->valeur) == NULL)
         {
+            // Dans le cas non on l'insère
             inserer(arbre2, arbre1->valeur);
         }
-        arbre2->gauche = fusion(arbre1->gauche, arbre2->gauche);
-        arbre2->droit = fusion(arbre1->droit, arbre2->droit);
+
+        // On fait de même pour l'arbre gauche et droite
+        arbre2 = fusion(arbre1->gauche, arbre2);
+        
+        arbre2 = fusion(arbre1->droit, arbre2);
         return arbre2;
 	}
-    else if (arbre2 == NULL)
+    if (arbre2 == NULL )
     {
 		return arbre1;
     }
-	else if (arbre1 == NULL)
+    else if (arbre1 == NULL)
     {
 		return arbre2;
     }
