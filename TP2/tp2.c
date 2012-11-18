@@ -54,21 +54,7 @@ int main(void)
     else
         printf("Non trouvé\n");
     
-    //Succ
-    printf("\n--------Successeur de %d-------------\n",51);
-    temp = successeur(arbre,51);
-    if(temp != NULL)
-        printf("Successeur: %d\n",temp->valeur);
-    else
-        printf("Succeseur : Il n'en a pas\n");
     
-    //Predecesseur
-    printf("\n--------Predecesseur de %d-------------\n",52);
-    temp = predecesseur(arbre,52);
-    if(temp !=NULL)
-        printf("Predecesseur: %d\n",temp->valeur);
-    else
-        printf("Predecesseur: Il n'en a pas\n");
     
     //Fonction vérifie
     printf("\n--------Verifie-------------\n");
@@ -93,7 +79,7 @@ int main(void)
     else
         printf("Maxi: Il n'en a pas\n");
     
-    printf("\n--------Supprimer-------------\n");
+    printf("\n--------Supprimer valeur 49-------------\n");
     temp = supprimer(arbre,49);
     if(temp !=NULL)
         printf("Supprimer: %d\n",49);
@@ -101,6 +87,22 @@ int main(void)
         printf("Valeur non trouvé\n");
     
     afficher2(arbre);printf("\n");
+    
+    //Succ
+    printf("\n--------Successeur de %d-------------\n",51);
+    temp = successeur(arbre,51);
+    if(temp != NULL)
+        printf("Successeur: %d\n",temp->valeur);
+    else
+        printf("Succeseur : Il n'en a pas\n");
+    
+    //Predecesseur
+    printf("\n--------Predecesseur de %d-------------\n",52);
+    temp = predecesseur(arbre,52);
+    if(temp !=NULL)
+        printf("Predecesseur: %d\n",temp->valeur);
+    else
+        printf("Predecesseur: Il n'en a pas\n");
     
     printf("\n--------Destruction-------------\n");
     detruire(arbre);
