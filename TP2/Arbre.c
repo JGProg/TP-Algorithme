@@ -18,16 +18,12 @@ Arbre* creer(int valeur)
 //OK
 void detruire(Arbre* racine)
 {
-    
-    //On supprime tous les souss arbres gauche
-	if(racine->gauche!=NULL)
+    if(racine != NULL)
+    {
 		detruire(racine->gauche);
-    //On supprime tous les sous arbres droit
-	if(racine->droit!=NULL)
 		detruire(racine->droit);
-	//printf("noeud %d  à détruire\n",racine->valeur);
-	free(racine);
-	
+        free(racine);
+    }
 }
 
 //OK
@@ -381,7 +377,7 @@ struct Noeud* successeur(Arbre* racine, int valeur)
 }
 
 
-//OK
+//NOK
 struct Noeud* predecesseur(Arbre* racine, int valeur)
 {
     struct Noeud* temp = racine;
