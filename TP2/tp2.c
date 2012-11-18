@@ -7,9 +7,10 @@ int main(void)
     int ValCherche1 = 50;
     int Valchercher2 = 50;
     int Valsupprimer = 1;
-    int suc = 54;
+    int suc = 3;
     int pre = 54;
-    
+    int Nopre = 0;
+    int nosuc = 54;
     //Création des variables
     Arbre * arbre;
     Arbre* temp;
@@ -44,7 +45,7 @@ int main(void)
     
     printf("\n--------Hauteur-------------\n");
     printf("hauteur: %d\n",hauteur(arbre));
-
+    
     
     //Cherche
     printf("\n--------Chercher 1-------------\n");
@@ -70,7 +71,7 @@ int main(void)
     if(boolean == 1)
         printf("Arbre verifie\n");
     else
-         printf("Arbre ne verifie pas\n");
+        printf("Arbre ne verifie pas\n");
     
     
     //Minimum
@@ -107,7 +108,15 @@ int main(void)
     else
         printf("Successeur : Il n'y en a pas\n");
     
-      
+    printf("\n--------Successeur de %d-------------\n",nosuc);
+    temp = successeur(arbre,nosuc);
+    if(temp != NULL)
+        printf("Successeur: %d\n",temp->valeur);
+    else
+        printf("Successeur : Il n'y en a pas\n");
+    
+    
+    
     //Predecesseur
     printf("\n--------Predecesseur de %d-------------\n",pre);
     temp = predecesseur(arbre,pre);
@@ -115,7 +124,15 @@ int main(void)
         printf("Predecesseur: %d\n",temp->valeur);
     else
         printf("Predecesseur: Il n'y en a pas\n");
-
+    
+    //Predecesseur
+    printf("\n--------Predecesseur de  %d-------------\n",Nopre);
+    temp = predecesseur(arbre,Nopre);
+    if(temp !=NULL)
+        printf("Predecesseur: %d\n",temp->valeur);
+    else
+        printf("Predecesseur: Il n'y en a pas\n");
+    
     
     //Destruction
     printf("\n--------Destruction-------------\n");
@@ -180,9 +197,6 @@ int main(void)
     afficher2(arbre2);printf("\n");
     
     afficher(fusion(arbre1,arbre2));
-    
-    
-    
     
     return 0;
 }
