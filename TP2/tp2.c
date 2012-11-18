@@ -82,7 +82,7 @@ detruire(arbre2);
     afficher2(arbre2);printf("\n");
     
 
-    afficher2(fusion(arbre1,arbre2));
+    afficher(fusion(arbre1,arbre2));
 
 
 

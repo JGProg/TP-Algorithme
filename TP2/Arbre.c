@@ -348,6 +348,7 @@ struct Noeud* predecesseur(Arbre* racine, int valeur)
         else
         {
             temp = racine;
+            
             int maxi =maximum(temp->droit)->valeur;
             while (valeur <= maxi)
             {
@@ -365,7 +366,7 @@ struct Noeud* predecesseur(Arbre* racine, int valeur)
 //OK
 Arbre* fusion(Arbre* arbre1, Arbre* arbre2)
 {
-   
+    Arbre * temp = arbre2;
     if(arbre2 != NULL && arbre1 != NULL)
     {
         // On recherche pour voir si la valeur arbre 1 est dans l'arbre 2
@@ -379,16 +380,20 @@ Arbre* fusion(Arbre* arbre1, Arbre* arbre2)
         arbre2 = fusion(arbre1->gauche, arbre2);
         
         arbre2 = fusion(arbre1->droit, arbre2);
-        return arbre2;
+        temp = arbre2;
 	}
-    if (arbre2 == NULL )
+    else
     {
-		return arbre1;
+        if (arbre2 == NULL )
+        {
+            temp = arbre1;
+        }
+        else if (arbre1 == NULL)
+        {
+            temp = arbre2;
+        }
     }
-    else if (arbre1 == NULL)
-    {
-		return arbre2;
-    }
+    return temp;
 }
 
 
