@@ -285,6 +285,8 @@ struct Noeud* maximum(Arbre* racine)
 //OK
 struct Noeud* supprimer(Arbre * Racine, int valeur)
 {
+    
+    
 	struct Noeud* NoeudASupprimer;
 	if (Racine->valeur==valeur) // on a trouvé l'élément à supprimer
 	{
@@ -319,6 +321,7 @@ struct Noeud* supprimer(Arbre * Racine, int valeur)
 	return Racine;
 }
 
+}
 //OK
 struct Noeud* successeur(Arbre* racine, int valeur)
 {
