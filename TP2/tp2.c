@@ -6,9 +6,9 @@ int main(void)
     //Initialisation des valeurs pour tester les fonnctions.
     int ValCherche1 = 50;
     int Valchercher2 = 50;
-    int Valsupprimer = 1;
-    int suc = 54;
-    int pre = 54;
+    int Valsupprimer = 49;
+    int suc = 51;
+    int pre = 52;
     
     //Création des variables
     Arbre * arbre;
@@ -105,22 +105,19 @@ int main(void)
     if(temp != NULL)
         printf("Successeur: %d\n",temp->valeur);
     else
-        printf("Successeur : Il n'y en a pas\n");
+        printf("Successeur : Il n'en a pas\n");
     
-      
     //Predecesseur
     printf("\n--------Predecesseur de %d-------------\n",pre);
     temp = predecesseur(arbre,pre);
     if(temp !=NULL)
         printf("Predecesseur: %d\n",temp->valeur);
     else
-        printf("Predecesseur: Il n'y en a pas\n");
-
+        printf("Predecesseur: Il n'en a pas\n");
     
     //Destruction
     printf("\n--------Destruction-------------\n");
     detruire(arbre);
-    
     
     printf("\n--------Equivalent-------------\n");
     Arbre * arbre1;
