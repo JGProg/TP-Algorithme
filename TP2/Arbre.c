@@ -238,26 +238,15 @@ struct Noeud* chercher2(Arbre* racine, int valeur)
 //OK
 struct Noeud* minimum(Arbre* racine)
 {
-	struct Noeud* min = racine;
-    //S'il existe un sous arbre gauche alors on regarde le minimum du sous abre gauche
-    if (racine->gauche)
+    struct Noeud* mini = racine;
+    if(mini != NULL)
     {
-        struct Noeud* MiniGauche = minimum(racine->gauche);
-        if(min->valeur >= MiniGauche->valeur )
+        while(mini->gauche != NULL)
         {
-             min = MiniGauche;
+            mini = mini->gauche;
         }
     }
-     //S'il existe un sous arbre droit alors on regarde le minimum du sous abre droit
-    if (racine->droit)
-    {
-        struct Noeud* MiniDroite = minimum(racine->droit);
-        if(min->valeur >= MiniDroite->valeur)
-        {
-            min = MiniDroite;
-        }
-    }
-    return min;
+    return mini;
 }
 
 //OK
@@ -265,16 +254,15 @@ struct Noeud* minimum(Arbre* racine)
 struct Noeud* maximum(Arbre* racine)
 {
 	struct Noeud* max = racine;
-    if (racine->gauche)
+    
+    if(max != NULL)
     {
-        struct Noeud* MaxiGauche = maximum(racine->gauche);
-        max = (max->valeur > MaxiGauche->valeur ) ? max : MaxiGauche;
+        while(max->droit != NULL)
+        {
+            max = max->droit;
+        }
     }
-    if (racine->droit)
-    {
-        struct Noeud* MaxiDroite = maximum (racine->droit);
-        max = (max->valeur > MaxiDroite->valeur ) ? max : MaxiDroite;
-    }
+    
     return max;
 }
 
@@ -317,129 +305,105 @@ struct Noeud* supprimer(Arbre * Racine, int valeur)
 
 
 //OK
-struct Noeud* successeur(Arbre* racine, int valeur)
-{
-    struct Noeud* temp = racine;
-    
-    // Dans le cas ou la valeur n'est pas présente
-    // OU
-    // la valeur est maxmimum alors la valeur ne peut avoir de succeseur
-    if(chercher(racine,valeur) == NULL || maximum(racine)->valeur == valeur)
-    {
-        temp = NULL;
-    }
-    //Dans le cas ou la valeur est le maximum du sous arbre gauche
-    //Alors la maximum est la racine
-    else if(valeur == maximum(temp->gauche)->valeur)
-    {
-        temp =  racine;
-    }
-    //Dans le cas ou la racine est la valeur
-    //Alors on retourne la valeur minimum du sous arbre droit
-    else if(racine->valeur == valeur)
-    {
-        temp = minimum(racine->droit);
-    }
-    //Dans le cas ou le minimum est la valeur rechercher
-    //Alors on retourne la deuxième plus petit valeur
-    else if(minimum(racine->gauche)->valeur ==valeur)
-    {
-        supprimer(temp,valeur);
-        temp = minimum(temp);
-    }
-    //Dans tous les autres cas
-    else
-    {
-        //On regarde si la valeur est dans le sous arbre droit
-        temp = chercher(racine->droit,valeur);
-        
-        //Dans le cas ou il est dans le sous arbre gauche
-        if(temp !=NULL)
-        {
-            //On regarde alors le minimum du sous abre droit
-            temp = minimum(temp->droit);
-        }
-        //On va supprimer tous les minimum jusqu'à arriver sur notre valeur
-        else
-        {
-            temp = racine;
-            int mini =minimum(temp->gauche)->valeur;
-            while (valeur <= mini)
-            {
-                supprimer(temp,mini);
-                mini =minimum(temp->gauche)->valeur;
-            }
-            temp = maximum(temp);
-        }
-    }
-    return temp;
-    
-}
-
-
-//NOK
 struct Noeud* predecesseur(Arbre* racine, int valeur)
 {
-    struct Noeud* temp = racine;
-    
-    // Dans le cas ou la valeur n'est pas présente
-    // OU
-    // la valeur est minimum alors la valeur ne peut avoir de succeseur
-    if(chercher(racine,valeur) == NULL || minimum(racine)->valeur == valeur)
+    struct Noeud* temp;
+    int trouve=0;
+    temp = chercher(racine,valeur);
+    //Si la valeur est bien présente dans l'arbre
+    if(temp != NULL)
     {
-        temp = NULL;
-    }
-    //Dans le cas ou la valeur est le maximum du sous arbre gauche
-    //Alors la minimum est la racine
-    else if(valeur == minimum(temp->droit)->valeur)
-    {
-        temp = racine;
-    }
-    //Dans le cas ou la racine est la valeur
-    //Alors on retourne la valeur maximum du sous arbre gauhe
-    else if(racine->valeur == valeur)
-    {
-        temp = maximum(racine->gauche);
-    }
-    //Dans le cas ou le minimum est la valeur rechercher
-    //Alors on retourne la deuxième plus grande valeur
-    else if(maximum(racine->droit)->valeur ==valeur)
-    {
-        supprimer(temp,valeur);
-        temp = maximum(temp);
-    }
-    //Dans tous les autres cas
-    else
-    {
-        //On regarde si la valeur est dans le sous arbre gauche
-        temp = chercher(racine->gauche,valeur);
-        
-        //Dans le cas ou il est dans le sous arbre droit
-        if(temp !=NULL)
+        //Dans le cas ou il n'y a pas de sous arbre gauche
+        if(minimum(temp->gauche) == NULL)
         {
-            //On regarde alors le maxi du sous abre gauche
-            temp = maximum(temp->gauche);
+            //Predecesseur dans ses parents
+            temp = parent(racine,valeur);
+            while(temp != NULL && trouve==0)
+            {
+                if(temp->valeur > valeur)
+                {
+                    temp = parent(racine,temp->valeur);
+                }
+                else trouve =1;
+            }
         }
-         //On va supprimer tous les minimum jusqu'à arriver sur notre valeur
         else
         {
-            temp = racine;
-            
-            int maxi =maximum(temp->droit)->valeur;
-            while (valeur <= maxi)
-            {
-                supprimer(temp,maxi);
-                maxi =maximum(temp->droit)->valeur;
-            }
-            temp = maximum(temp);
+            //On prend le plus grand des sous arbre gauche
+            temp = maximum(temp->gauche);
         }
     }
     return temp;
+    
+}
+
+
+struct Noeud* parent(Arbre * racine,int valeur)
+{
+    struct Noeud* parent = NULL;
+	while(racine != NULL && valeur != racine->valeur)
+	{
+        parent = racine;
+		if(valeur < racine->valeur)
+		{
+           
+			racine = racine->gauche;
+		}
+		else
+		{
+			racine = racine->droit;
+		}
+	}
+    //Si on n'a pas trouvé
+    if (racine == NULL)
+    {
+        return NULL;
+    }
+    //SI on a trouvé
+    else
+    {
+        return parent;
+    }
 }
 
 
 
-// NOK
+
+//OK
+struct Noeud* successeur(Arbre* racine, int valeur)
+{
+    struct Noeud* temp;
+    int trouve=0;
+    temp = chercher(racine,valeur);
+    //Si la valeur est bien présente dans l'arbre
+    if(temp != NULL)
+    {
+        //Dans le cas ou il n'y a pas de sous arbre droit
+        if(minimum(temp->droit) == NULL)
+        {
+            //Successeur dans ses parents
+            temp = parent(racine,valeur);
+            while(temp != NULL && trouve==0)
+            {
+                if(temp->valeur < valeur)
+                {
+                    temp = parent(racine,temp->valeur);
+                }
+                else trouve =1;
+            }
+        }
+        else
+        {
+            //On prend le plus petits des sous arbre droit
+            temp = minimum(temp->droit);
+        }
+    }
+    return temp;
+    
+}
+
+
+// OK
 // Probleme avec le return temp ajoute un '%' à la fin.
 // Ce n'est pas un problème d'affichage.
 // Si l'on fait un simple return arbre2 dans la fonction on se retrouve aussi avec ce '%'. Problème non corrigé.

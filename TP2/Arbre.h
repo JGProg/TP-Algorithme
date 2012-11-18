@@ -37,11 +37,12 @@ struct Noeud* maximum(Arbre* racine);
 
 
 struct Noeud* supprimer(Arbre* racine, int valeur);
-
+struct Noeud* parent(Arbre* racine,int valeur);
 
 
 Arbre* fusion(Arbre* arbre1, Arbre* arbre2);
 int equivalents(Arbre* arbre1, Arbre* arbre2);
+
 
 
 #endif
