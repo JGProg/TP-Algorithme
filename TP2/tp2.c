@@ -24,8 +24,8 @@ printf("moyenne: %d\n",moyenne(arbre));
 printf("hauteur: %d\n",hauteur(arbre));
 printf("cherche: %d\n",chercher(arbre, 50));
 printf("cherche: %d\n",chercher2(arbre, 1));
-printf("Successeur: %d\n",successeur(arbre,0)->valeur);
-printf("Predecesseur: %d\n",predecesseur(arbre,3)->valeur);
+printf("Successeur: %d\n",successeur(arbre,51)->valeur);
+printf("Predecesseur: %d\n",predecesseur(arbre,52)->valeur);
     printf("Verifie: %d\n",verifie(arbre));
     
 
@@ -58,6 +58,7 @@ inserer(arbre2, 0);
 inserer(arbre2, 49);
 inserer(arbre2, 50);
 inserer(arbre2, 51);
+inserer(arbre2, 52);
 printf("Equivalent: %d\n",equivalents(arbre1,arbre2));
 detruire(arbre1);
 detruire(arbre2);

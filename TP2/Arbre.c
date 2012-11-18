@@ -273,73 +273,91 @@ struct Noeud* supprimer(Arbre * Racine, int valeur)
 //OK
 struct Noeud* successeur(Arbre* racine, int valeur)
 {
+    struct Noeud* temp = racine;
+
     if(chercher(racine,valeur) == NULL || maximum(racine)->valeur == valeur)
     {
-        return NULL;
+        temp = NULL;
     }
-    struct Noeud* temp = racine;
-    while(racine != NULL && valeur != racine->valeur)
-	{
-		if(valeur < racine->valeur)
-		{
-            temp = racine;
-			racine = racine->gauche;
-		}
-		else
-		{
-            temp = racine;
-			racine = racine->droit;
-		}
-	}
-    printf("%d et valeur %d\n",maximum(temp->gauche)->valeur,valeur);
-    
-    if(valeur == maximum(temp->gauche)->valeur)
+    else if(valeur == maximum(temp->gauche)->valeur)
     {
-        return racine;
+        temp =  racine;
     }
     else if(racine->valeur == valeur)
     {
-        return minimum(racine->droit);
+        temp = minimum(racine->droit);
     }
-    else    
+    else if(minimum(racine->gauche)->valeur ==valeur)
     {
-        return temp;
+        supprimer(temp,valeur);
+        temp = minimum(temp);
     }
+    else
+    {
+        temp = chercher(racine->droit,valeur);
+        if(temp !=NULL)
+        {
+            temp = minimum(temp->droit);
+        }
+        else
+        {
+            temp = racine;
+            int mini =minimum(temp->gauche)->valeur;
+            while (valeur <= mini)
+            {
+                supprimer(temp,mini);
+                mini =minimum(temp->gauche)->valeur;
+            }
+            temp = maximum(temp);
+        }
+    }
+    return temp;
 
 }
 
 
-//NOK
+//OK
 struct Noeud* predecesseur(Arbre* racine, int valeur)
 {
+    struct Noeud* temp = racine;
+    
     if(chercher(racine,valeur) == NULL || minimum(racine)->valeur == valeur)
     {
-        return NULL;
+        temp = NULL;
     }
-    struct Noeud* temp = NULL;
-    while(racine != NULL && valeur != racine->valeur)
-	{
-		if(valeur < racine->valeur)
-		{
-            
-			racine = racine->gauche;
-            temp = racine;
-		}
-		else
-		{
-            
-			racine = racine->droit;
-            temp = racine;
-		}
-	}
-    if (racine == NULL)
+    else if(valeur == minimum(temp->droit)->valeur)
     {
-        return NULL;
+        temp = racine;
+    }
+    else if(racine->valeur == valeur)
+    {
+        temp = maximum(racine->gauche);
+    }
+    else if(maximum(racine->droit)->valeur ==valeur)
+    {
+        supprimer(temp,valeur);
+        temp = maximum(temp);
     }
     else
     {
-        return temp;
+        temp = chercher(racine->gauche,valeur);
+        if(temp !=NULL)
+        {
+            temp = maximum(temp->gauche);
+        }
+        else
+        {
+            temp = racine;
+            int maxi =maximum(temp->droit)->valeur;
+            while (valeur <= maxi)
+            {
+                supprimer(temp,maxi);
+                maxi =maximum(temp->droit)->valeur;
+            }
+            temp = maximum(temp);
+        }
     }
+    return temp;
 }
 
 
