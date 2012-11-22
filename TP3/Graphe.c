@@ -109,13 +109,28 @@ Sommet* rechercher(Graphe* Sommet,int G)
 
 
 void afficher(Graphe* G) {
-	// à implementer..
+	
+	Adjacent* temp = G->list_adjacents;
+	while(temp != NULL )
+	{
+		printf("pere : %d ,",G->id);
+		printf("frere : %d \n",temp->sommet);
+		temp=temp->suivant;
+		
+	}
+	
+	if( G-> suivant != NULL )
+			afficher(G->suivant);
+		else 
+			printf("suivant vide\n");
 }
 
 void detruire(Graphe* G) {
-	// à implementer..
+	if( G-> suivant != NULL )
+		detruire(G->suivant);
+	free(G);
+		
 }
-
 void parcours_largeur(Graphe* G, int s) {
 	// à implementer..
 }
