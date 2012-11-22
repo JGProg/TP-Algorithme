@@ -13,7 +13,7 @@
 
 
 typedef struct _Adjacent {   
-  struct _Sommet *sommet;   
+  int sommet;
   struct _Adjacent* suivant;   
   struct _Adjacent* precedent; 
 } Adjacent;

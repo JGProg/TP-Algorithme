@@ -16,34 +16,87 @@ Graphe* charger_graphe(const char *fichier) {
 }
 
 
+Graphe* rechercher(Graphe* Sommet,int G);
 
-void ajouter(Graphe* G,int o, int b) {
-    if(G != NULL)
+//Initailise les adjacents
+Adjacent* creer_Adjacent(int val)
+{
+    Adjacent* NewAdj =(Adjacent*)malloc(sizeof(Adjacent));
+    NewAdj->sommet = val;
+    NewAdj->suivant = NULL;
+    NewAdj->precedent = NULL;
+    return NewAdj;
+}
+
+//Initialise le Sommet
+Sommet* creer_Sommet(int val)
+{
+    Sommet* NewSommet =(Sommet*)malloc(sizeof(Sommet));
+    NewSommet->id = val;
+    NewSommet->list_adjacents = NULL;
+    NewSommet->suivant = NULL;
+    NewSommet->precedent = NULL;
+    return NewSommet;
+}
+
+//On insère le sommet
+void inserer_Sommet(Graphe * G,Sommet * Som)
+{
+    if(G == NULL)
     {
-        struct Sommet Som;
-        Som->id = o;
-        if(rechercher(b,o) == 1)
-        {
-            NewSommet=(struct Sommet*)malloc(sizeof (Sommet));
-            NewSommet->id=a;
-            NewSommet->suivant=e;
-        }
+        G = Som;
     }
     else
     {
-        if(rechercher(b,o) == 1)
-        {
-            
-        }
+        Som->suivant = G;
+        G->precedent = Som;
+        G=Som;
     }
-    return m;
+}
+
+void inserer_adjacent(Sommet * Som, Adjacent * a1)
+{
+    if(Som->list_adjacents == NULL)
+    {
+        Som->list_adjacents = a1;
+    }
+    else
+    {
+        a1->suivant = Som->list_adjacents;
+        Som->list_adjacents->precedent = a1;
+        Som->list_adjacents = a1;
+    }
+}
+
+void ajouter(Graphe* G,int o, int b) {
+    Sommet* Newsom = rechercher(G,b);
+    Sommet* Newsom2 = rechercher(G,b);
+    
+    if(Newsom == NULL)
+    {
+        Newsom = creer_Sommet(o);
+        inserer_Sommet(G,Newsom);
+    }
+    if(Newsom2 == NULL)
+    {
+        Newsom2 = creer_Sommet(o);
+        inserer_Sommet(G,Newsom2);
+    }
+
+    Adjacent* a1 = creer_Adjacent(b);
+    inserer_adjacent(Newsom,a1);
+    
+    Adjacent* a2 = creer_Adjacent(o);
+    inserer_adjacent(Newsom2,a2);
 
 }
 
+
+
 //Trouver -> 1
-struct _Sommet rechercher(Graphe* Sommet,int G)
+Sommet* rechercher(Graphe* Sommet,int G)
 {
-    if (Sommet==NULL)
+    if (Sommet == NULL)
     {
      return NULL;
     }
@@ -51,7 +104,7 @@ struct _Sommet rechercher(Graphe* Sommet,int G)
     {
         return Sommet;
     }
-    return rechercher(G,Sommet->suivant);
+    return rechercher(Sommet->suivant,G);
 }
 
 
