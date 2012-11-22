@@ -5,7 +5,8 @@ int main(void)
 
   	/* des tests ici ... */
 	Graphe* G = charger_graphe("graphe1.txt");
-    printf("%d\n",G->id);
+    afficher(G);
+    detruire(G);
 		
 
 	return 0;

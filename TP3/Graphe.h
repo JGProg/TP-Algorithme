@@ -46,7 +46,7 @@ Graphe* charger_graphe(const char *fichier);
  * s : sommet origine
  * b : sommet but
  */
-void ajouter(Graphe* G,int o, int b);
+Graphe* ajouter(Graphe* G,int o, int b);
 
 /* @ Exercice 1 
  * Afficher le graphe.

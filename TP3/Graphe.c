@@ -2,17 +2,18 @@
 
 
 Graphe* charger_graphe(const char *fichier) {
- FILE *flot;
- Graphe* G = (Sommet*)malloc(sizeof(Sommet));
- int o,b ;
- if ((flot = fopen(fichier, "r")) == NULL) {
-  fprintf(stderr,"\nErreur: impossible d'ouvrir le fichier %s\n", fichier);
-  return(NULL);
- } 
- while (fscanf(flot, "%i %i ", &o, &b) == 2) {
-  if (o>=0 && b>=0) ajouter(G,o,b);
- }
- return(G) ;
+    FILE *flot;
+    Graphe* G = NULL;
+    int o,b ;
+    if ((flot = fopen(fichier, "r")) == NULL) {
+        fprintf(stderr,"\nErreur: impossible d'ouvrir le fichier %s\n", fichier);
+        return(NULL);
+    }
+    while (fscanf(flot, "%i %i ", &o, &b) == 2) {
+        if (o>=0 && b>=0)
+            G = ajouter(G,o,b);
+    }
+    return(G) ;
 }
 
 
@@ -39,19 +40,19 @@ Sommet* creer_Sommet(int val)
     return NewSommet;
 }
 
-//On insère le sommet
-void inserer_Sommet(Graphe * G,Sommet * Som)
+//On insÃ¨re le sommet
+Graphe* inserer_Sommet(Graphe * G,Sommet * Som)
 {
     if(G == NULL)
     {
-        G = Som;
+        return Som;
     }
     else
     {
         Som->suivant = G;
         G->precedent = Som;
-        G=Som;
     }
+    return Som;
 }
 
 void inserer_adjacent(Sommet * Som, Adjacent * a1)
@@ -68,29 +69,28 @@ void inserer_adjacent(Sommet * Som, Adjacent * a1)
     }
 }
 
-void ajouter(Graphe* G,int o, int b) {
-    Sommet* Newsom = rechercher(G,b);
+Graphe* ajouter(Graphe* G,int o, int b) {
+    Sommet* Newsom = rechercher(G,o);
     Sommet* Newsom2 = rechercher(G,b);
     
     if(Newsom == NULL)
     {
         Newsom = creer_Sommet(o);
-        printf("Sommet inserer %d\n",Newsom->id);
-        inserer_Sommet(G,Newsom);
+        G = inserer_Sommet(G,Newsom);
     }
     if(Newsom2 == NULL)
     {
-        Newsom2 = creer_Sommet(o);
-        printf("Sommet inserer %d\n",Newsom2->id);
-        inserer_Sommet(G,Newsom2);
+        Newsom2 = creer_Sommet(b);
+        G = inserer_Sommet(G,Newsom2);
     }
-
-    //Adjacent* a1 = creer_Adjacent(b);
-    //inserer_adjacent(Newsom,a1);
     
-    //Adjacent* a2 = creer_Adjacent(o);
-    //inserer_adjacent(Newsom2,a2);
-
+    Adjacent* a1 = creer_Adjacent(b);
+    inserer_adjacent(Newsom,a1);
+    
+    Adjacent* a2 = creer_Adjacent(o);
+    inserer_adjacent(Newsom2,a2);
+    
+    return G;
 }
 
 
@@ -100,7 +100,7 @@ Sommet* rechercher(Graphe* Sommet,int G)
 {
     if (Sommet == NULL)
     {
-     return NULL;
+        return NULL;
     }
     if (Sommet->id==G)
     {
@@ -110,48 +110,47 @@ Sommet* rechercher(Graphe* Sommet,int G)
 }
 
 
-void afficher(Graphe* G) {
-<<<<<<< HEAD
-	
-=======
-    
->>>>>>> Correct problem to initialization of Graphe.
-	Adjacent* temp = G->list_adjacents;
-	while(temp != NULL )
-	{
-		printf("pere : %d ,",G->id);
-		printf("frere : %d \n",temp->sommet);
-		temp=temp->suivant;
-<<<<<<< HEAD
-		
-	}
-	
-	if( G-> suivant != NULL )
-			afficher(G->suivant);
-		else 
-			printf("suivant vide\n");
-=======
-        
-	}
-    
-	if( G-> suivant != NULL )
+void afficher(Graphe* G)
+{
+    Adjacent* temp = G->list_adjacents;
+    printf("%d ",G->id);
+    while(temp != NULL )
+    {
+        printf(" - %d ",temp->sommet);
+        temp=temp->suivant;
+    }
+    printf("\n");
+    if( G-> suivant != NULL )
         afficher(G->suivant);
-    else
-        printf("suivant vide\n");
->>>>>>> Correct problem to initialization of Graphe.
 }
 
-void detruire(Graphe* G) {
-	if( G-> suivant != NULL )
-		detruire(G->suivant);
-	free(G);
-		
+void detruiteAdj(Adjacent * adj)
+{
+    if(adj->suivant != NULL)
+    {
+        detruiteAdj(adj->suivant);
+    }
+    printf("Adjacents %d\n", adj->sommet);
+    free(adj);
 }
+
+
+void detruire(Graphe* G)
+{
+    if(G->suivant != NULL)
+    {
+        detruire(G->suivant);
+    }
+    detruiteAdj(G->list_adjacents);
+    printf("Sommet %d\n", G->id);
+    free(G);
+}
+
+
 void parcours_largeur(Graphe* G, int s) {
-	// à implementer..
+	// Ã  implementer..
 }
 
 void imprimer_chemin(Graphe* G, int s, int v) {
-	// à implementer..
+	// Ã  implementer..
 }
-
