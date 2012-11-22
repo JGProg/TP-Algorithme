@@ -4,8 +4,8 @@ int main(void)
 {
 
   	/* des tests ici ... */
-	charger_graphe("graphe1.txt");
-	
+	Graphe* G = charger_graphe("graphe1.txt");
+    printf("%d\n",G->id);
 		
 
 	return 0;

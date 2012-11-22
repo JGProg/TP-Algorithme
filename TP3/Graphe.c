@@ -3,14 +3,14 @@
 
 Graphe* charger_graphe(const char *fichier) {
  FILE *flot;
- Graphe* G = NULL;
+ Graphe* G = (Sommet*)malloc(sizeof(Sommet));
  int o,b ;
  if ((flot = fopen(fichier, "r")) == NULL) {
   fprintf(stderr,"\nErreur: impossible d'ouvrir le fichier %s\n", fichier);
   return(NULL);
  } 
  while (fscanf(flot, "%i %i ", &o, &b) == 2) {
-  if (o>=0 && b>=0) ajouter(G,o,b) ;
+  if (o>=0 && b>=0) ajouter(G,o,b);
  }
  return(G) ;
 }
@@ -75,19 +75,21 @@ void ajouter(Graphe* G,int o, int b) {
     if(Newsom == NULL)
     {
         Newsom = creer_Sommet(o);
+        printf("Sommet inserer %d\n",Newsom->id);
         inserer_Sommet(G,Newsom);
     }
     if(Newsom2 == NULL)
     {
         Newsom2 = creer_Sommet(o);
+        printf("Sommet inserer %d\n",Newsom2->id);
         inserer_Sommet(G,Newsom2);
     }
 
-    Adjacent* a1 = creer_Adjacent(b);
-    inserer_adjacent(Newsom,a1);
+    //Adjacent* a1 = creer_Adjacent(b);
+    //inserer_adjacent(Newsom,a1);
     
-    Adjacent* a2 = creer_Adjacent(o);
-    inserer_adjacent(Newsom2,a2);
+    //Adjacent* a2 = creer_Adjacent(o);
+    //inserer_adjacent(Newsom2,a2);
 
 }
 
@@ -109,13 +111,18 @@ Sommet* rechercher(Graphe* Sommet,int G)
 
 
 void afficher(Graphe* G) {
+<<<<<<< HEAD
 	
+=======
+    
+>>>>>>> Correct problem to initialization of Graphe.
 	Adjacent* temp = G->list_adjacents;
 	while(temp != NULL )
 	{
 		printf("pere : %d ,",G->id);
 		printf("frere : %d \n",temp->sommet);
 		temp=temp->suivant;
+<<<<<<< HEAD
 		
 	}
 	
@@ -123,6 +130,15 @@ void afficher(Graphe* G) {
 			afficher(G->suivant);
 		else 
 			printf("suivant vide\n");
+=======
+        
+	}
+    
+	if( G-> suivant != NULL )
+        afficher(G->suivant);
+    else
+        printf("suivant vide\n");
+>>>>>>> Correct problem to initialization of Graphe.
 }
 
 void detruire(Graphe* G) {
